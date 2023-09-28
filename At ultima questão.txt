@@ -1,0 +1,63 @@
+use efuture
+db.createCollection("usuarios")
+db.createCollection("produtos")
+db.usuarios.insertMany([
+    { nome: "João", idade: 28, cidade: "São Paulo" },
+    { nome: "Maria", idade: 35, cidade: "Rio de Janeiro" },
+    { nome: "Pedro", idade: 22, cidade: "São Paulo" },
+    { nome: "Ana", idade: 30, cidade: "Belo Horizonte" },
+    { nome: "Lucas", idade: 25, cidade: "São Paulo" }
+])
+db.produtos.insertMany([
+    { descricao: "Smartphone", valor_unitario: 999, estoque: 50 },
+    { descricao: "Laptop", valor_unitario: 1999, estoque: 30 },
+    { descricao: "Tablet", valor_unitario: 499, estoque: 20 },
+    { descricao: "Fone de Ouvido", valor_unitario: 149, estoque: 100 },
+    { descricao: "Smart TV", valor_unitario: 799, estoque: 15 },
+    { descricao: "Câmera DSLR", valor_unitario: 899, estoque: 10 },
+    { descricao: "Console de Jogos", valor_unitario: 399, estoque: 25 },
+    { descricao: "Impressora", valor_unitario: 199, estoque: 35 },
+    { descricao: "Monitor", valor_unitario: 299, estoque: 40 },
+    { descricao: "Roteador Wi-Fi", valor_unitario: 69, estoque: 50 }
+])
+db.usuarios.aggregate([
+    {
+        $group: {
+            _id: "$cidade",
+            totalClientes: { $sum: 1 }
+        }
+    },
+    {
+        $sort: { totalClientes: -1 }
+    },
+    {
+        $limit: 1
+    }
+])
+db.usuarios.aggregate([
+    {
+        $bucketAuto: {
+            groupBy: "$idade",
+            buckets: 5,
+            output: {
+                faixaEtaria: { $min: "$idade" },
+                totalClientes: { $sum: 1 }
+            }
+        }
+    }
+])
+db.produtos.find().sort({ estoque: -1 }).limit(1)
+db.produtos.find().sort({ valor_unitario: 1 }).limit(1)
+db.produtos.aggregate([
+    {
+        $addFields: {
+            totalValor: { $multiply: ["$valor_unitario", "$estoque"] }
+        }
+    },
+    {
+        $sort: { totalValor: -1 }
+    },
+    {
+        $limit: 5
+    }
+])
