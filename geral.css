@@ -1,0 +1,64 @@
+h1{
+    color: brown;
+    text-transform: uppercase;
+}
+.oioi h1{
+    color: brown;
+}
+.ini{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.ini h1{
+    font-size: 68px;
+    font-family:monospace;
+    color: brown;
+}
+.ini p{
+    font-size: 16px;
+    margin-right: 60px;
+    margin-left: 60px;
+}
+
+.oioi{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 40px;
+}
+.oioi h1{
+    font-size: 68px;
+}
+.ini h1{
+    font-size: 68px;
+}
+.ini p{
+    font-size: 16px;
+    margin-right: 60px;
+    margin-left: 60px;
+}
+.sla{
+    margin-top: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+footer{
+    margin-top: 100px;
+}
+
+.nav-link{
+    color: brown;
+}
